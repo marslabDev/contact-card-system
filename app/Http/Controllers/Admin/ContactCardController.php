@@ -126,8 +126,19 @@ class ContactCardController extends Controller
 
                 return '';
             });
+            $table->editColumn('gallery', function ($row) {
+                if (!$row->gallery) {
+                    return '';
+                }
+                $links = [];
+                foreach ($row->gallery as $media) {
+                    $links[] = '<a href="' . $media->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>';
+                }
 
-            $table->rawColumns(['actions', 'placeholder', 'banner_image', 'profile_image']);
+                return implode(', ', $links);
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'banner_image', 'profile_image', 'gallery']);
 
             return $table->make(true);
         }
@@ -154,6 +165,10 @@ class ContactCardController extends Controller
 
         if ($request->input('profile_image', false)) {
             $contactCard->addMedia(storage_path('tmp/uploads/' . basename($request->input('profile_image'))))->toMediaCollection('profile_image');
+        }
+
+        foreach ($request->input('gallery', []) as $file) {
+            $contactCard->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('gallery');
         }
 
         if ($media = $request->input('ck-media', false)) {
@@ -196,6 +211,20 @@ class ContactCardController extends Controller
             }
         } elseif ($contactCard->profile_image) {
             $contactCard->profile_image->delete();
+        }
+
+        if (count($contactCard->gallery) > 0) {
+            foreach ($contactCard->gallery as $media) {
+                if (!in_array($media->file_name, $request->input('gallery', []))) {
+                    $media->delete();
+                }
+            }
+        }
+        $media = $contactCard->gallery->pluck('file_name')->toArray();
+        foreach ($request->input('gallery', []) as $file) {
+            if (count($media) === 0 || !in_array($file, $media)) {
+                $contactCard->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('gallery');
+            }
         }
 
         return redirect()->route('admin.contact-cards.index');

@@ -95,6 +95,9 @@ class StoreContactCardRequest extends FormRequest
             'profile_image' => [
                 'required',
             ],
+            'gallery' => [
+                'array',
+            ],
         ];
     }
 }
