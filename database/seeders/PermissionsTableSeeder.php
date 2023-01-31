@@ -84,30 +84,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 19,
-                'title' => 'contact_card_management_access',
-            ],
-            [
-                'id'    => 20,
                 'title' => 'contact_card_create',
             ],
             [
-                'id'    => 21,
+                'id'    => 20,
                 'title' => 'contact_card_edit',
             ],
             [
-                'id'    => 22,
+                'id'    => 21,
                 'title' => 'contact_card_show',
             ],
             [
-                'id'    => 23,
+                'id'    => 22,
                 'title' => 'contact_card_delete',
             ],
             [
-                'id'    => 24,
+                'id'    => 23,
                 'title' => 'contact_card_access',
             ],
             [
-                'id'    => 25,
+                'id'    => 24,
                 'title' => 'profile_password_edit',
             ],
         ];
