@@ -67,26 +67,14 @@
                 </ul>
             </li>
         @endcan
-        @can('contact_card_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/contact-cards*") ? "c-show" : "" }}">
-                <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+        @can('contact_card_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.contact-cards.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/contact-cards") || request()->is("admin/contact-cards/*") ? "c-active" : "" }}">
+                    <i class="fa-fw far fa-address-card c-sidebar-nav-icon">
 
                     </i>
-                    {{ trans('cruds.contactCardManagement.title') }}
+                    {{ trans('cruds.contactCard.title') }}
                 </a>
-                <ul class="c-sidebar-nav-dropdown-items">
-                    @can('contact_card_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.contact-cards.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/contact-cards") || request()->is("admin/contact-cards/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.contactCard.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
             </li>
         @endcan
         @php($unread = \App\Models\QaTopic::unreadCount())

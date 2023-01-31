@@ -103,10 +103,6 @@ return [
             'updated_at_helper'   => ' ',
         ],
     ],
-    'contactCardManagement' => [
-        'title'          => 'Contact Card Management',
-        'title_singular' => 'Contact Card Management',
-    ],
     'contactCard' => [
         'title'          => 'Contact Card',
         'title_singular' => 'Contact Card',
