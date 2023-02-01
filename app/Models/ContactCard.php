@@ -22,15 +22,16 @@ class ContactCard extends Model implements HasMedia
 
     public $table = 'contact_cards';
 
-    protected $appends = [
-        'banner_image',
-        'profile_image',
-    ];
-
     protected $dates = [
         'created_at',
         'updated_at',
         'deleted_at',
+    ];
+
+    protected $appends = [
+        'banner_image',
+        'profile_image',
+        'gallery',
     ];
 
     protected $fillable = [
@@ -86,6 +87,11 @@ class ContactCard extends Model implements HasMedia
         }
 
         return $file;
+    }
+
+    public function getGalleryAttribute()
+    {
+        return $this->getMedia('gallery');
     }
 
     public function created_by()

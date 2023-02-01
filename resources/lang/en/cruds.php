@@ -157,6 +157,8 @@ return [
             'deleted_at_helper'          => ' ',
             'created_by'                 => 'Created By',
             'created_by_helper'          => ' ',
+            'gallery'                    => 'Gallery',
+            'gallery_helper'             => ' ',
         ],
     ],
 ];

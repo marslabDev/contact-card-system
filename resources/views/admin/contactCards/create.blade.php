@@ -212,6 +212,17 @@
                 <span class="help-block">{{ trans('cruds.contactCard.fields.profile_image_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="gallery">{{ trans('cruds.contactCard.fields.gallery') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('gallery') ? 'is-invalid' : '' }}" id="gallery-dropzone">
+                </div>
+                @if($errors->has('gallery'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('gallery') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.contactCard.fields.gallery_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>
@@ -334,5 +345,61 @@
     }
 }
 
+</script>
+<script>
+    var uploadedGalleryMap = {}
+Dropzone.options.galleryDropzone = {
+    url: '{{ route('admin.contact-cards.storeMedia') }}',
+    maxFilesize: 10, // MB
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    params: {
+      size: 10
+    },
+    success: function (file, response) {
+      $('form').append('<input type="hidden" name="gallery[]" value="' + response.name + '">')
+      uploadedGalleryMap[file.name] = response.name
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      var name = ''
+      if (typeof file.file_name !== 'undefined') {
+        name = file.file_name
+      } else {
+        name = uploadedGalleryMap[file.name]
+      }
+      $('form').find('input[name="gallery[]"][value="' + name + '"]').remove()
+    },
+    init: function () {
+@if(isset($contactCard) && $contactCard->gallery)
+          var files =
+            {!! json_encode($contactCard->gallery) !!}
+              for (var i in files) {
+              var file = files[i]
+              this.options.addedfile.call(this, file)
+              file.previewElement.classList.add('dz-complete')
+              $('form').append('<input type="hidden" name="gallery[]" value="' + file.file_name + '">')
+            }
+@endif
+    },
+     error: function (file, response) {
+         if ($.type(response) === 'string') {
+             var message = response //dropzone sends it's own error messages in string
+         } else {
+             var message = response.errors.file
+         }
+         file.previewElement.classList.add('dz-error')
+         _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+         _results = []
+         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+             node = _ref[_i]
+             _results.push(node.textContent = message)
+         }
+
+         return _results
+     }
+}
 </script>
 @endsection

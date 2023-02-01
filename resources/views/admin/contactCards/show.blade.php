@@ -191,6 +191,18 @@
                             @endif
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.contactCard.fields.gallery') }}
+                        </th>
+                        <td>
+                            @foreach($contactCard->gallery as $key => $media)
+                                <a href="{{ $media->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

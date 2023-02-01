@@ -89,6 +89,9 @@
                         {{ trans('cruds.contactCard.fields.profile_image') }}
                     </th>
                     <th>
+                        {{ trans('cruds.contactCard.fields.gallery') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -151,6 +154,8 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
                     </td>
                     <td>
                     </td>
@@ -232,6 +237,7 @@
 { data: 'vision', name: 'vision' },
 { data: 'banner_image', name: 'banner_image', sortable: false, searchable: false },
 { data: 'profile_image', name: 'profile_image', sortable: false, searchable: false },
+{ data: 'gallery', name: 'gallery', sortable: false, searchable: false },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

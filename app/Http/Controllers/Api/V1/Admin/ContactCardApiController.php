@@ -35,6 +35,10 @@ class ContactCardApiController extends Controller
             $contactCard->addMedia(storage_path('tmp/uploads/' . basename($request->input('profile_image'))))->toMediaCollection('profile_image');
         }
 
+        foreach ($request->input('gallery', []) as $file) {
+            $contactCard->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('gallery');
+        }
+
         return (new ContactCardResource($contactCard))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
@@ -71,6 +75,20 @@ class ContactCardApiController extends Controller
             }
         } elseif ($contactCard->profile_image) {
             $contactCard->profile_image->delete();
+        }
+
+        if (count($contactCard->gallery) > 0) {
+            foreach ($contactCard->gallery as $media) {
+                if (!in_array($media->file_name, $request->input('gallery', []))) {
+                    $media->delete();
+                }
+            }
+        }
+        $media = $contactCard->gallery->pluck('file_name')->toArray();
+        foreach ($request->input('gallery', []) as $file) {
+            if (count($media) === 0 || !in_array($file, $media)) {
+                $contactCard->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('gallery');
+            }
         }
 
         return (new ContactCardResource($contactCard))

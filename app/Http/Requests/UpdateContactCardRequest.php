@@ -95,6 +95,9 @@ class UpdateContactCardRequest extends FormRequest
             'profile_image' => [
                 'required',
             ],
+            'gallery' => [
+                'array',
+            ],
         ];
     }
 }
