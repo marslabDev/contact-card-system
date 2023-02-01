@@ -10,6 +10,7 @@ class CreateContactCardsTable extends Migration
     {
         Schema::create('contact_cards', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('url_slug')->nullable();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('company_name');

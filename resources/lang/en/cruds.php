@@ -159,6 +159,8 @@ return [
             'created_by_helper'          => ' ',
             'gallery'                    => 'Gallery',
             'gallery_helper'             => ' ',
+            'url_slug'                   => 'Url Slug',
+            'url_slug_helper'            => ' ',
         ],
     ],
 ];

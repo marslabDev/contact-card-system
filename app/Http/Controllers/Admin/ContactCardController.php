@@ -50,6 +50,9 @@ class ContactCardController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
+            $table->editColumn('url_slug', function ($row) {
+                return $row->url_slug ? $row->url_slug : '';
+            });
             $table->editColumn('first_name', function ($row) {
                 return $row->first_name ? $row->first_name : '';
             });

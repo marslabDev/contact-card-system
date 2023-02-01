@@ -25,6 +25,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.contactCard.fields.url_slug') }}
+                        </th>
+                        <td>
+                            {{ $contactCard->url_slug }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.contactCard.fields.first_name') }}
                         </th>
                         <td>
