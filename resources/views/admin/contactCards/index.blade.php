@@ -29,6 +29,9 @@
                         {{ trans('cruds.contactCard.fields.id') }}
                     </th>
                     <th>
+                        {{ trans('cruds.contactCard.fields.url_slug') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.contactCard.fields.first_name') }}
                     </th>
                     <th>
@@ -156,6 +159,9 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
                     </td>
                     <td>
                     </td>
@@ -217,6 +223,7 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'url_slug', name: 'url_slug' },
 { data: 'first_name', name: 'first_name' },
 { data: 'last_name', name: 'last_name' },
 { data: 'company_name', name: 'company_name' },

@@ -10,6 +10,16 @@
         <form method="POST" action="{{ route("admin.contact-cards.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
+                <label for="url_slug">{{ trans('cruds.contactCard.fields.url_slug') }}</label>
+                <input class="form-control {{ $errors->has('url_slug') ? 'is-invalid' : '' }}" type="text" name="url_slug" id="url_slug" value="{{ old('url_slug', '') }}">
+                @if($errors->has('url_slug'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('url_slug') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.contactCard.fields.url_slug_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="first_name">{{ trans('cruds.contactCard.fields.first_name') }}</label>
                 <input class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}" type="text" name="first_name" id="first_name" value="{{ old('first_name', '') }}" required>
                 @if($errors->has('first_name'))

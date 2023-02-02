@@ -35,6 +35,7 @@ class ContactCard extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'url_slug',
         'first_name',
         'last_name',
         'company_name',

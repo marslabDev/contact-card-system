@@ -17,6 +17,10 @@ class UpdateContactCardRequest extends FormRequest
     public function rules()
     {
         return [
+            'url_slug' => [
+                'string',
+                'nullable',
+            ],
             'first_name' => [
                 'string',
                 'required',
