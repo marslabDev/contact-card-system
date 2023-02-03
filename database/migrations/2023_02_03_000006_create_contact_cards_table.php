@@ -25,6 +25,7 @@ class CreateContactCardsTable extends Migration
             $table->string('wechat')->nullable();
             $table->string('youtube_url')->nullable();
             $table->string('tiktok')->nullable();
+            $table->string('douyin')->nullable();
             $table->string('xiao_hong_shu')->nullable();
             $table->string('slogan')->nullable();
             $table->string('mission')->nullable();
