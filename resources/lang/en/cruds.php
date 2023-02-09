@@ -161,6 +161,8 @@ return [
             'gallery_helper'             => ' ',
             'url_slug'                   => 'Url Slug',
             'url_slug_helper'            => ' ',
+            'douyin'                     => 'Douyin',
+            'douyin_helper'              => ' ',
         ],
     ],
 ];

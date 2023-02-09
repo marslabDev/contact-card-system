@@ -160,6 +160,16 @@
                 <span class="help-block">{{ trans('cruds.contactCard.fields.tiktok_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="douyin">{{ trans('cruds.contactCard.fields.douyin') }}</label>
+                <input class="form-control {{ $errors->has('douyin') ? 'is-invalid' : '' }}" type="text" name="douyin" id="douyin" value="{{ old('douyin', '') }}">
+                @if($errors->has('douyin'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('douyin') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.contactCard.fields.douyin_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="xiao_hong_shu">{{ trans('cruds.contactCard.fields.xiao_hong_shu') }}</label>
                 <input class="form-control {{ $errors->has('xiao_hong_shu') ? 'is-invalid' : '' }}" type="text" name="xiao_hong_shu" id="xiao_hong_shu" value="{{ old('xiao_hong_shu', '') }}">
                 @if($errors->has('xiao_hong_shu'))

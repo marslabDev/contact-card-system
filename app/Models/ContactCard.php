@@ -50,6 +50,7 @@ class ContactCard extends Model implements HasMedia
         'wechat',
         'youtube_url',
         'tiktok',
+        'douyin',
         'xiao_hong_shu',
         'slogan',
         'mission',

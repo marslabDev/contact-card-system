@@ -145,6 +145,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.contactCard.fields.douyin') }}
+                        </th>
+                        <td>
+                            {{ $contactCard->douyin }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.contactCard.fields.xiao_hong_shu') }}
                         </th>
                         <td>

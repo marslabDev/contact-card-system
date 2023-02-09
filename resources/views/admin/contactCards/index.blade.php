@@ -74,6 +74,9 @@
                         {{ trans('cruds.contactCard.fields.tiktok') }}
                     </th>
                     <th>
+                        {{ trans('cruds.contactCard.fields.douyin') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.contactCard.fields.xiao_hong_shu') }}
                     </th>
                     <th>
@@ -100,6 +103,9 @@
                 </tr>
                 <tr>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -238,6 +244,7 @@
 { data: 'wechat', name: 'wechat' },
 { data: 'youtube_url', name: 'youtube_url' },
 { data: 'tiktok', name: 'tiktok' },
+{ data: 'douyin', name: 'douyin' },
 { data: 'xiao_hong_shu', name: 'xiao_hong_shu' },
 { data: 'slogan', name: 'slogan' },
 { data: 'mission', name: 'mission' },

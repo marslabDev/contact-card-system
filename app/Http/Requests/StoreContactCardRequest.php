@@ -77,6 +77,10 @@ class StoreContactCardRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'douyin' => [
+                'string',
+                'nullable',
+            ],
             'xiao_hong_shu' => [
                 'string',
                 'nullable',

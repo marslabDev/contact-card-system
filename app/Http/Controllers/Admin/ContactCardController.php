@@ -95,6 +95,9 @@ class ContactCardController extends Controller
             $table->editColumn('tiktok', function ($row) {
                 return $row->tiktok ? $row->tiktok : '';
             });
+            $table->editColumn('douyin', function ($row) {
+                return $row->douyin ? $row->douyin : '';
+            });
             $table->editColumn('xiao_hong_shu', function ($row) {
                 return $row->xiao_hong_shu ? $row->xiao_hong_shu : '';
             });
