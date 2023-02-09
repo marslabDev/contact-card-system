@@ -87,6 +87,16 @@
                 </a>
             </li>
         @endcan
+        @can('photo_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.photos.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/photos") || request()->is("admin/photos/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-images c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.photo.title') }}
+                </a>
+            </li>
+        @endcan
         @php($unread = \App\Models\QaTopic::unreadCount())
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.messenger.index") }}" class="{{ request()->is("admin/messenger") || request()->is("admin/messenger/*") ? "c-active" : "" }} c-sidebar-nav-link">

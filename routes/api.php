@@ -7,4 +7,8 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Social Media
     Route::apiResource('social-media', 'SocialMediaApiController');
+
+    // Photo
+    Route::post('photos/media', 'PhotoApiController@storeMedia')->name('photos.storeMedia');
+    Route::apiResource('photos', 'PhotoApiController');
 });

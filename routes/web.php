@@ -43,6 +43,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('social-media/process-csv-import', 'SocialMediaController@processCsvImport')->name('social-media.processCsvImport');
     Route::resource('social-media', 'SocialMediaController');
 
+    // Photo
+    Route::delete('photos/destroy', 'PhotoController@massDestroy')->name('photos.massDestroy');
+    Route::post('photos/media', 'PhotoController@storeMedia')->name('photos.storeMedia');
+    Route::post('photos/ckmedia', 'PhotoController@storeCKEditorImages')->name('photos.storeCKEditorImages');
+    Route::post('photos/parse-csv-import', 'PhotoController@parseCsvImport')->name('photos.parseCsvImport');
+    Route::post('photos/process-csv-import', 'PhotoController@processCsvImport')->name('photos.processCsvImport');
+    Route::resource('photos', 'PhotoController');
+
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
     Route::post('messenger', 'MessengerController@storeTopic')->name('messenger.storeTopic');
