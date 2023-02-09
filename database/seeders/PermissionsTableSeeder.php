@@ -104,6 +104,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 24,
+                'title' => 'social_medium_create',
+            ],
+            [
+                'id'    => 25,
+                'title' => 'social_medium_edit',
+            ],
+            [
+                'id'    => 26,
+                'title' => 'social_medium_show',
+            ],
+            [
+                'id'    => 27,
+                'title' => 'social_medium_delete',
+            ],
+            [
+                'id'    => 28,
+                'title' => 'social_medium_access',
+            ],
+            [
+                'id'    => 29,
                 'title' => 'profile_password_edit',
             ],
         ];

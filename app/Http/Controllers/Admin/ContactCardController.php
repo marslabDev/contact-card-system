@@ -240,7 +240,7 @@ class ContactCardController extends Controller
     {
         abort_if(Gate::denies('contact_card_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $contactCard->load('created_by');
+        $contactCard->load('created_by', 'contactCardSocialMedia');
 
         return view('admin.contactCards.show', compact('contactCard'));
     }
