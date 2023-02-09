@@ -67,6 +67,11 @@ class ContactCard extends Model implements HasMedia
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 
+    public function contactCardSocialMedia()
+    {
+        return $this->hasMany(SocialMedium::class, 'contact_card_id', 'id');
+    }
+
     public function getBannerImageAttribute()
     {
         $file = $this->getMedia('banner_image')->last();

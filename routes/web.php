@@ -37,6 +37,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('contact-cards/process-csv-import', 'ContactCardController@processCsvImport')->name('contact-cards.processCsvImport');
     Route::resource('contact-cards', 'ContactCardController');
 
+    // Social Media
+    Route::delete('social-media/destroy', 'SocialMediaController@massDestroy')->name('social-media.massDestroy');
+    Route::post('social-media/parse-csv-import', 'SocialMediaController@parseCsvImport')->name('social-media.parseCsvImport');
+    Route::post('social-media/process-csv-import', 'SocialMediaController@processCsvImport')->name('social-media.processCsvImport');
+    Route::resource('social-media', 'SocialMediaController');
+
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
     Route::post('messenger', 'MessengerController@storeTopic')->name('messenger.storeTopic');
