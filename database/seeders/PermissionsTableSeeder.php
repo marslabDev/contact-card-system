@@ -124,6 +124,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 29,
+                'title' => 'photo_create',
+            ],
+            [
+                'id'    => 30,
+                'title' => 'photo_edit',
+            ],
+            [
+                'id'    => 31,
+                'title' => 'photo_show',
+            ],
+            [
+                'id'    => 32,
+                'title' => 'photo_delete',
+            ],
+            [
+                'id'    => 33,
+                'title' => 'photo_access',
+            ],
+            [
+                'id'    => 34,
                 'title' => 'profile_password_edit',
             ],
         ];

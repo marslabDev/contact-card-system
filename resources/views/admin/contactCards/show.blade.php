@@ -240,10 +240,18 @@
                 {{ trans('cruds.socialMedium.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#contact_card_photos" role="tab" data-toggle="tab">
+                {{ trans('cruds.photo.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="contact_card_social_media">
             @includeIf('admin.contactCards.relationships.contactCardSocialMedia', ['socialMedia' => $contactCard->contactCardSocialMedia])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="contact_card_photos">
+            @includeIf('admin.contactCards.relationships.contactCardPhotos', ['photos' => $contactCard->contactCardPhotos])
         </div>
     </div>
 </div>
