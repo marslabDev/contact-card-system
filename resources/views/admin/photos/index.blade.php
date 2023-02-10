@@ -35,6 +35,9 @@
                         {{ trans('cruds.photo.fields.photo') }}
                     </th>
                     <th>
+                        {{ trans('cruds.photo.fields.is_selected') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -53,6 +56,9 @@
                         </select>
                     </td>
                     <td>
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                     </td>
@@ -112,6 +118,7 @@
 { data: 'id', name: 'id' },
 { data: 'contact_card_email', name: 'contact_card.email' },
 { data: 'photo', name: 'photo', sortable: false, searchable: false },
+{ data: 'is_selected', name: 'is_selected' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

@@ -56,15 +56,18 @@ class PhotoController extends Controller
             });
 
             $table->editColumn('photo', function ($row) {
-                if ($photo = $row->photo) {
-                    return sprintf(
-        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
-        $photo->url,
-        $photo->thumbnail
-    );
+                if (!$row->photo) {
+                    return '';
+                }
+                $links = [];
+                foreach ($row->photo as $media) {
+                    $links[] = '<a href="' . $media->getUrl() . '" target="_blank"><img src="' . $media->getUrl('thumb') . '" width="50px" height="50px"></a>';
                 }
 
-                return '';
+                return implode(' ', $links);
+            });
+            $table->editColumn('is_selected', function ($row) {
+                return $row->is_selected ? $row->is_selected : '';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'contact_card', 'photo']);
@@ -91,8 +94,8 @@ class PhotoController extends Controller
     {
         $photo = Photo::create($request->all());
 
-        if ($request->input('photo', false)) {
-            $photo->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
+        foreach ($request->input('photo', []) as $file) {
+            $photo->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('photo');
         }
 
         if ($media = $request->input('ck-media', false)) {
@@ -117,15 +120,18 @@ class PhotoController extends Controller
     {
         $photo->update($request->all());
 
-        if ($request->input('photo', false)) {
-            if (!$photo->photo || $request->input('photo') !== $photo->photo->file_name) {
-                if ($photo->photo) {
-                    $photo->photo->delete();
+        if (count($photo->photo) > 0) {
+            foreach ($photo->photo as $media) {
+                if (!in_array($media->file_name, $request->input('photo', []))) {
+                    $media->delete();
                 }
-                $photo->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
             }
-        } elseif ($photo->photo) {
-            $photo->photo->delete();
+        }
+        $media = $photo->photo->pluck('file_name')->toArray();
+        foreach ($request->input('photo', []) as $file) {
+            if (count($media) === 0 || !in_array($file, $media)) {
+                $photo->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('photo');
+            }
         }
 
         return redirect()->route('admin.photos.index');

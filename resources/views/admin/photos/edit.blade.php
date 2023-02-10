@@ -36,6 +36,16 @@
                 <span class="help-block">{{ trans('cruds.photo.fields.photo_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="is_selected">{{ trans('cruds.photo.fields.is_selected') }}</label>
+                <input class="form-control {{ $errors->has('is_selected') ? 'is-invalid' : '' }}" type="number" name="is_selected" id="is_selected" value="{{ old('is_selected', $photo->is_selected) }}" step="1" required>
+                @if($errors->has('is_selected'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('is_selected') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.photo.fields.is_selected_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>
@@ -50,11 +60,11 @@
 
 @section('scripts')
 <script>
-    Dropzone.options.photoDropzone = {
+    var uploadedPhotoMap = {}
+Dropzone.options.photoDropzone = {
     url: '{{ route('admin.photos.storeMedia') }}',
     maxFilesize: 10, // MB
     acceptedFiles: '.jpeg,.jpg,.png,.gif',
-    maxFiles: 1,
     addRemoveLinks: true,
     headers: {
       'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -65,42 +75,48 @@
       height: 4096
     },
     success: function (file, response) {
-      $('form').find('input[name="photo"]').remove()
-      $('form').append('<input type="hidden" name="photo" value="' + response.name + '">')
+      $('form').append('<input type="hidden" name="photo[]" value="' + response.name + '">')
+      uploadedPhotoMap[file.name] = response.name
     },
     removedfile: function (file) {
+      console.log(file)
       file.previewElement.remove()
-      if (file.status !== 'error') {
-        $('form').find('input[name="photo"]').remove()
-        this.options.maxFiles = this.options.maxFiles + 1
+      var name = ''
+      if (typeof file.file_name !== 'undefined') {
+        name = file.file_name
+      } else {
+        name = uploadedPhotoMap[file.name]
       }
+      $('form').find('input[name="photo[]"][value="' + name + '"]').remove()
     },
     init: function () {
 @if(isset($photo) && $photo->photo)
-      var file = {!! json_encode($photo->photo) !!}
+      var files = {!! json_encode($photo->photo) !!}
+          for (var i in files) {
+          var file = files[i]
           this.options.addedfile.call(this, file)
-      this.options.thumbnail.call(this, file, file.preview ?? file.preview_url)
-      file.previewElement.classList.add('dz-complete')
-      $('form').append('<input type="hidden" name="photo" value="' + file.file_name + '">')
-      this.options.maxFiles = this.options.maxFiles - 1
+          this.options.thumbnail.call(this, file, file.preview ?? file.preview_url)
+          file.previewElement.classList.add('dz-complete')
+          $('form').append('<input type="hidden" name="photo[]" value="' + file.file_name + '">')
+        }
 @endif
     },
-    error: function (file, response) {
-        if ($.type(response) === 'string') {
-            var message = response //dropzone sends it's own error messages in string
-        } else {
-            var message = response.errors.file
-        }
-        file.previewElement.classList.add('dz-error')
-        _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
-        _results = []
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            node = _ref[_i]
-            _results.push(node.textContent = message)
-        }
+     error: function (file, response) {
+         if ($.type(response) === 'string') {
+             var message = response //dropzone sends it's own error messages in string
+         } else {
+             var message = response.errors.file
+         }
+         file.previewElement.classList.add('dz-error')
+         _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+         _results = []
+         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+             node = _ref[_i]
+             _results.push(node.textContent = message)
+         }
 
-        return _results
-    }
+         return _results
+     }
 }
 
 </script>

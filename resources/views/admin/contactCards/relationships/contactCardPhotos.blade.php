@@ -31,6 +31,9 @@
                             {{ trans('cruds.photo.fields.photo') }}
                         </th>
                         <th>
+                            {{ trans('cruds.photo.fields.is_selected') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -48,11 +51,14 @@
                                 {{ $photo->contact_card->email ?? '' }}
                             </td>
                             <td>
-                                @if($photo->photo)
-                                    <a href="{{ $photo->photo->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $photo->photo->getUrl('thumb') }}">
+                                @foreach($photo->photo as $key => $media)
+                                    <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $media->getUrl('thumb') }}">
                                     </a>
-                                @endif
+                                @endforeach
+                            </td>
+                            <td>
+                                {{ $photo->is_selected ?? '' }}
                             </td>
                             <td>
                                 @can('photo_show')

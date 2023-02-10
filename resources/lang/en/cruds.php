@@ -205,6 +205,8 @@ return [
             'created_by_helper'   => ' ',
             'photo'               => 'Photo',
             'photo_helper'        => ' ',
+            'is_selected'         => 'Is Selected',
+            'is_selected_helper'  => ' ',
         ],
     ],
 ];
