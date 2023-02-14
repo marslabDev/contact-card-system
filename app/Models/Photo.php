@@ -34,6 +34,7 @@ class Photo extends Model implements HasMedia
 
     protected $fillable = [
         'contact_card_id',
+        'is_selected',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -53,14 +54,14 @@ class Photo extends Model implements HasMedia
 
     public function getPhotoAttribute()
     {
-        $file = $this->getMedia('photo')->last();
-        if ($file) {
-            $file->url       = $file->getUrl();
-            $file->thumbnail = $file->getUrl('thumb');
-            $file->preview   = $file->getUrl('preview');
-        }
+        $files = $this->getMedia('photo');
+        $files->each(function ($item) {
+            $item->url = $item->getUrl();
+            $item->thumbnail = $item->getUrl('thumb');
+            $item->preview = $item->getUrl('preview');
+        });
 
-        return $file;
+        return $files;
     }
 
     public function created_by()

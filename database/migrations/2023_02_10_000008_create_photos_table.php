@@ -10,6 +10,7 @@ class CreatePhotosTable extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('is_selected');
             $table->timestamps();
             $table->softDeletes();
         });

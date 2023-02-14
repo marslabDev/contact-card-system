@@ -22,7 +22,17 @@ class StorePhotoRequest extends FormRequest
                 'integer',
             ],
             'photo' => [
+                'array',
                 'required',
+            ],
+            'photo.*' => [
+                'required',
+            ],
+            'is_selected' => [
+                'required',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
             ],
         ];
     }

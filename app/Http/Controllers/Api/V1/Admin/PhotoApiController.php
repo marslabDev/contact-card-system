@@ -27,8 +27,8 @@ class PhotoApiController extends Controller
     {
         $photo = Photo::create($request->all());
 
-        if ($request->input('photo', false)) {
-            $photo->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
+        foreach ($request->input('photo', []) as $file) {
+            $photo->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('photo');
         }
 
         return (new PhotoResource($photo))
@@ -47,15 +47,18 @@ class PhotoApiController extends Controller
     {
         $photo->update($request->all());
 
-        if ($request->input('photo', false)) {
-            if (!$photo->photo || $request->input('photo') !== $photo->photo->file_name) {
-                if ($photo->photo) {
-                    $photo->photo->delete();
+        if (count($photo->photo) > 0) {
+            foreach ($photo->photo as $media) {
+                if (!in_array($media->file_name, $request->input('photo', []))) {
+                    $media->delete();
                 }
-                $photo->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
             }
-        } elseif ($photo->photo) {
-            $photo->photo->delete();
+        }
+        $media = $photo->photo->pluck('file_name')->toArray();
+        foreach ($request->input('photo', []) as $file) {
+            if (count($media) === 0 || !in_array($file, $media)) {
+                $photo->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('photo');
+            }
         }
 
         return (new PhotoResource($photo))
